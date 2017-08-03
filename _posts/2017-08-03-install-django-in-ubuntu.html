@@ -1,0 +1,27 @@
+---
+layout: default
+title: Ubuntu中安装Django
+---
+
+<h2>{{ page.title }}</h2>
+
+<p>
+平时习惯用python3，所以下面的安装过程都是基于python3<br/>
+
+注：建议在虚拟环境中安装，virtualenv的安装及用法这里不介绍<br/><br/>
+1. 首先安装pip3
+<pre>
+$ sudo apt install python3-pip
+</pre>
+2. 通过pip3在线安装django
+<pre>
+$ pip3 install django
+</pre>
+3. 安装完成，通过python3测试一下
+<pre>
+$ python3
+>>> import django
+>>> django.get_version()
+</pre>
+显示Django版本表示正确安装
+</p>
