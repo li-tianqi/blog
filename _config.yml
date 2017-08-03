@@ -1,6 +1,5 @@
 baseurl: /blog
 markdown: redcarpet
 safe: false
-pygments: true
 eccerpt_separator: "\n\n\n"
 
