@@ -1,5 +1,4 @@
 baseurl: /blog
-markdown: redcarpet
 safe: false
 eccerpt_separator: "\n\n\n"
 
