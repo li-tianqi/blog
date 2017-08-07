@@ -70,7 +70,7 @@ read subject
 
 echo "your subject is: \n $subject"
 
-message="$type($scope):$subject"
+message="$type($scope): $subject"
 
 echo "edit message done"
 
