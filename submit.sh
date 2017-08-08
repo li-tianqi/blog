@@ -60,15 +60,15 @@ done
 echo "you have chosen type $type_num : $type"
 # 想加上提示是否重新输入的功能
 
-echo "input the scope (<file name> or <*>):\n"
+echo -e "input the scope (<file name> or <*>):\n"
 read scope
 
-echo "your scope is: \n $scope"
+echo -e "your scope is: \n $scope"
 
-echo "input the subject (describe the changes):\n"
+echo -e "input the subject (describe the changes):\n"
 read subject
 
-echo "your subject is: \n $subject"
+echo -e "your subject is: \n $subject"
 
 message="$type($scope): $subject"
 
