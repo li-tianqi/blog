@@ -3,7 +3,7 @@
 choose_type()
 {
 	tip1="
-	choose type(1-9):
+choose type(1-9):
 	1. <feat>: 新增feature
 	2. <fix>: 修复bug
 	3. <docs>: 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等
@@ -15,6 +15,7 @@ choose_type()
 	9. <revert>: 回滚到上一个版本
 
 	"
+	echo "----------------------------------------"
 	echo "$tip1"
 
 	while true
@@ -56,13 +57,15 @@ choose_type()
 
 edit_scope()
 {
-	echo -e "input the scope (<file name> or <*>):\n"
+	echo "----------------------------------------"
+	echo -e "input the scope (<file name> or <*>):"
 	read scope
 }
 
 edit_subject()
 {
-	echo -e "input the subject (describe the changes):\n"
+	echo "----------------------------------------"
+	echo -e "input the subject (describe the changes):"
 	read subject
 }
 
@@ -75,6 +78,7 @@ edit_commit_message()
 	while true
 	do
 		choose_type
+		echo "----------------------------------------"
 		echo "you have chosen type $type_num : $type_m"
 		echo "go on? (y/n): "
 		read key1
@@ -88,6 +92,7 @@ edit_commit_message()
 	while true
 	do
 		edit_scope
+		echo "----------------------------------------"
 		echo -e "your scope is: \n $scope"
 		echo "go on? (y/n): "
 		read key2
@@ -101,6 +106,7 @@ edit_commit_message()
 	while true
 	do
 		edit_subject
+		echo "----------------------------------------"
 		echo -e "your subject is: \n $subject"
 		echo "go on? (y/n): "
 		read key3
@@ -120,11 +126,13 @@ echo "git add ..."
 git add .
 echo "add done"
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo -e "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 while true
 do
 	edit_commit_message
+	echo "----------------------------------------"
+	echo "----------------------------------------"
 	echo -e "your message is: \n $message"
 	echo "go on? (y/n): "
 	read key4
@@ -134,7 +142,7 @@ do
 	fi
 done
 
-
+echo "----------------------------------------"
 echo "edit message done"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
