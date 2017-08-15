@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Use Markdown
-categories: test
+categories: Test
 tags: markdown
 ---
 
