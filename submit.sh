@@ -80,7 +80,7 @@ edit_commit_message()
 		choose_type
 		echo "----------------------------------------"
 		echo "you have chosen type $type_num : $type_m"
-		echo "go on? (y/n): "
+		echo "go on? (y/n):[y] "
 		read key1
 		if [ $key1=='y' ] || [ $key1=='' ]
 		then
@@ -94,7 +94,7 @@ edit_commit_message()
 		edit_scope
 		echo "----------------------------------------"
 		echo -e "your scope is: \n $scope"
-		echo "go on? (y/n): "
+		echo "go on? (y/n)[y]: "
 		read key2
 		if [ $key2=='y' ] || [ $key2=='' ]
 		then
@@ -108,7 +108,7 @@ edit_commit_message()
 		edit_subject
 		echo "----------------------------------------"
 		echo -e "your subject is: \n $subject"
-		echo "go on? (y/n): "
+		echo "go on? (y/n)[y]: "
 		read key3
 		if [ $key3=='y' ] || [ $key3=='' ]
 		then
