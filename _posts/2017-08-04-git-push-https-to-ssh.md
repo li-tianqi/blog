@@ -1,6 +1,9 @@
 ---
-layout: default
+layout: post
 title: 解决每次git push都要输入用户密码的问题
+categories: Tutorial
+tags: github
+excerpt_separator: <!--more-->
 ---
 
 ## 解决每次git push都要输入用户密码的问题
@@ -10,6 +13,8 @@ title: 解决每次git push都要输入用户密码的问题
 
 **解决方法：**
 改成ssh方式
+
+<!--more-->
 
 1. 查看连接协议：
 ```

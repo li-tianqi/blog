@@ -1,7 +1,14 @@
 ---
-layout: default
+layout: post
 title: MySQL命令
+categories: Database
+tags: mysql
+excerpt_separator: <!--more-->
 ---
+
+记录mysql命令  
+
+<!--more-->
 
 ## MySQL命令记录
 - 查看数据库：

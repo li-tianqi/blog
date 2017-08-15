@@ -1,6 +1,8 @@
 ---
-layout: default
+layout: post
 title: Use Markdown
+categories: test
+tags: markdown
 ---
 
 ## Why Markdown  

@@ -1,7 +1,14 @@
 ---
-layout: default
+layout: post
 title: Ubuntu搭建jekyll环境
+categories: [Ubuntu, Web]
+tags: jekyll
+excerpt_separator: <!--more-->
 ---
+
+jekyll环境搭建
+
+<!--more-->
 
 ## Ubuntu中搭建jekyll环境
 ### 1. 安装ruby

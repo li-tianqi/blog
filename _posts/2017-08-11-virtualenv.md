@@ -1,6 +1,8 @@
 ---
-layout: default
+layout: post
 title: Python虚拟环境
+categories: [Ubuntu, Python, Tutorial]
+tags: python3
 ---
 
 ## 安装virtualenv
