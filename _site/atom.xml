@@ -1,417 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="/atom.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-08-17T10:19:23+08:00</updated><id>/</id><title type="html">Victor’s Blog</title><subtitle>This is Victor's blog.</subtitle><author><name>Victor LI</name></author><entry><title type="html">Django学习记录</title><link href="/python/web/2017/08/15/django-practice/" rel="alternate" type="text/html" title="Django学习记录" /><published>2017-08-15T00:00:00+08:00</published><updated>2017-08-15T00:00:00+08:00</updated><id>/python/web/2017/08/15/django-practice</id><content type="html" xml:base="/python/web/2017/08/15/django-practice/">&lt;p&gt;做一个小工具要用到Django，简单熟悉一下Django创建项目的流程并记录一些需要注意的地方，之前已经搭建过Django开发环境，所以跳过这步。&lt;br /&gt;
-直接从建立项目开始。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h3 id=&quot;入门练习&quot;&gt;入门练习&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-新建项目&quot;&gt;1. 新建项目：&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ django-admin.py startproject Demo
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;2-新建app&quot;&gt;2. 新建app：&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd Demo
-$ python3 manage.py startapp Hello
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;3-项目目录结构&quot;&gt;3. 项目目录结构：&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.
-├── Hello
-│   ├── admin.py
-│   ├── apps.py
-│   ├── __init__.py
-│   ├── migrations
-│   │   └── __init__.py
-│   ├── models.py
-│   ├── tests.py
-│   └── views.py
-├── manage.py
-└── Test
-    ├── __init__.py
-    ├── __pycache__
-    │   ├── __init__.cpython-35.pyc
-    │   └── settings.cpython-35.pyc
-    ├── settings.py
-    ├── urls.py
-    └── wsgi.py
-
-4 directories, 14 files
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;urls.py&lt;br /&gt;
-链接入口，关联到对应的 views.py 中的一个函数（或者乘坐 generic 类），访问的链接就对应一个函数。&lt;br /&gt;
-views.py&lt;br /&gt;
-处理用户发出的请求，从 urls.py 中对应而来，通过渲染 templates 中的网页可以为用户显示页面内容，比如登录后的用户名，用户请求的数据，通过其输出到页面。&lt;br /&gt;
-models.py&lt;br /&gt;
-与数据库操作相关，存入或读取数据时使用。当不使用数据库的时候，也可以当做一般的类封装文件，存储各种类的定义。&lt;br /&gt;
-forms.py&lt;br /&gt;
-表单，用户在浏览器上输入提交，对数据的验证工作以及输入框的生成等工作，都依托于此。&lt;br /&gt;
-admin.py&lt;br /&gt;
-后台文件，可以用少量的代码就拥有一个强大的后台。&lt;br /&gt;
-settings.py&lt;br /&gt;
-Django 的设置、配置文件，比如 DEBUG 的开关，静态文件的位置等等。&lt;/p&gt;
-
-  &lt;p&gt;除了这些，还有以上目录中未提及的：&lt;br /&gt;
-templates目录&lt;br /&gt;
-views.py 中的函数渲染 templates 中的 html 模板，得到动态内容的网页，可以用缓存来提高渲染速度。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;4-编辑viewspy文件&quot;&gt;4. 编辑views.py文件：&lt;/h4&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# coding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.shortcuts&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.http&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Create your views here.&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;u'Hello World'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# u'string' means unicode&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;5-在settingspy中添加app&quot;&gt;5. 在settings.py中添加app:&lt;/h4&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;INSTALLED_APPS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'django.contrib.admin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'django.contrib.auth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'django.contrib.contenttypes'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'django.contrib.sessions'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'django.contrib.messages'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'django.contrib.staticfiles'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'Hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;6-配置urlurlspy&quot;&gt;6. 配置URL（urls.py）&lt;/h4&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.conf.urls&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.contrib&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;views&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello_views&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;autodiscover&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;urlpatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# Examples:&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# url(r'^$', 'Test.views.home', name='home'),&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# url(r'^blog/', include('blog.urls')),&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^admin/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^index'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello_views&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;7-测试&quot;&gt;7. 测试：&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python3 manage.py runserver 8080
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;浏览器127.0.0.1:8080/index/&lt;/p&gt;
-
-&lt;h4 id=&quot;8-get方法传递参数实现加法&quot;&gt;8. GET方法传递参数实现加法&lt;/h4&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.shortcuts&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.http&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-	
-&lt;span class=&quot;c&quot;&gt;# urls.py文件添加 url(r'^add/', calc_views.add, name='add')&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 127.0.0.1:8080/add/?a=3&amp;amp;b=4 传递a，b的值&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-	
-&lt;span class=&quot;c&quot;&gt;# 加 url(r'^add/(\d+)/(\d+)/$', calc_views.add2, name='add2')&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 127.0.0.1:8080/add/3/4 &lt;/span&gt;
-	
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;9-添加模板文件&quot;&gt;9. 添加模板文件&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;views.py添加home方法&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;home&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'home.html'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;在对应app目录建立templates文件夹并添加home.html文件&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;配置路由&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^home/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello_views&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;home&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'home'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;测试&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;127.0.0.1:8080/home&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;提示找不到模板&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;在settings中加上&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'BACKEND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'django.template.backends.django.DjangoTemplates'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'DIRS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'templates'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'APP_DIRS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'OPTIONS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s&quot;&gt;'context_processors'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.template.context_processors.debug'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.template.context_processors.request'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.contrib.auth.context_processors.auth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.contrib.messages.context_processors.messages'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;再次测试提示警告&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;WARNINGS:
-?: (1&lt;em&gt;8.W001) The standalone TEMPLATE&lt;/em&gt;* settings were deprecated in Django 1.8 and the TEMPLATES dictionary takes precedence. You must put the values of the following settings into your default TEMPLATES dict: TEMPLATE_DEBUG.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;在settings中将TEMPLATE_开头的项都移到TEMPLATES中&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'BACKEND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'django.template.backends.django.DjangoTemplates'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'DIRS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'templates'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'APP_DIRS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'OPTIONS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s&quot;&gt;'context_processors'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.template.context_processors.debug'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.template.context_processors.request'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.contrib.auth.context_processors.auth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;'django.contrib.messages.context_processors.messages'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-			&lt;span class=&quot;s&quot;&gt;'debug'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 如这行&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;10-模型与数据库&quot;&gt;10. 模型与数据库&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;在模型中定义数据库结构&lt;/strong&gt;&lt;br /&gt;
-app目录下的models.py&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.db&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-	
-	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 该方法用于查询数据库时返回具体表项&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
-		
-	&lt;span class=&quot;c&quot;&gt;# 定义Person类，继承自models.Model&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;执行同步数据库操作&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python3 manage.py makemigrations
-$ python3 manage.py migrate
-# 这里用默认的sqlites数据库，无需其他操作
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;使用数据库测试&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python3 manage.py shell
-&amp;gt;&amp;gt;&amp;gt; from Hello.models import Person
-&amp;gt;&amp;gt;&amp;gt; Person.objects.create(name=&quot;LI&quot;, age=23)
-&amp;lt;Person: Person object&amp;gt;
-
-&amp;gt;&amp;gt;&amp;gt; Person.objects.get(name=&quot;LI&quot;)
-&amp;lt;Person: Person object&amp;gt;  # 此为不加__str__方法时的返回结果
-
-&amp;gt;&amp;gt;&amp;gt; Person.objects.get(name=&quot;LI&quot;)
-&amp;lt;Person: LI&amp;gt;  # 此为加了__str__方法时的返回结果
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;其他操作&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 增操作
-# 1
-Person.objects.create(name = name, age = age)
-
-# 2
-p = Person(name = name, age = age)
-p.save()
-
-# 3
-p = Person(name = name)
-p.age = age
-p.save()
-
-# 4 
-Person.objects.get_or_create(name = name, age = age)
-# 该方法用于防止重复，返回元祖，第一个是Person对象，第二个是布尔值，新建为True，已存在为False
-
-
-# 查操作
-Person.objects.all()
-
-# 2. 切片操作，获取10个人，不支持负索引，切片可以节约内存
-Person.objects.all()[:10]
-
-# 3
-Person.objects.get(name = name)
-
-# 4. get是用来获取一个对象的，如果需要获取满足条件的一些人，就要用到 filter
-Person.objects.filter(name = &quot;abc&quot;)
-
-# 5. 名称为 abc 但是不区分大小写，可以找到 ABC, Abc, aBC，这些都符合条件
-Person.objects.filter(name__iexact = &quot;abc&quot;)
-
-# 6. 名称中包含 &quot;abc&quot;的人
-Person.objects.filter(name__contains = &quot;abc&quot;)
-
-# 7. 名称中包含 &quot;abc&quot;，且abc不区分大小写
-Person.objects.filter(name__icontains = &quot;abc&quot;)
-
-# 8. 正则表达式查询
-Person.objects.filter(name__regex = &quot;^abc&quot;)
-
-# 9. 正则表达式不区分大小写
-Person.objects.filter(name__iregex = &quot;^abc&quot;)
-
-# 10. 排除包含 WZ 的Person对象
-Person.objects.exclude(name__contains = &quot;WZ&quot;)
-
-# 11. 找出名称含有abc, 但是排除年龄是23岁的
-Person.objects.filter(name__contains=&quot;abc&quot;).exclude(age = 23)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;总结使用数据库的方法&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;在app对应的models.py中建立相应的表项类&lt;/li&gt;
-  &lt;li&gt;同步数据库&lt;/li&gt;
-  &lt;li&gt;对数据库操作&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;11-表单&quot;&gt;11. 表单&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;GET方法提交表单&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;实现计算a+b和&lt;/em&gt;&lt;br /&gt;
-在对应app下添加模板index.html文件&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;Please input 2 numbers:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;action=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/add/&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;get&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    a: &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;br&amp;gt;&lt;/span&gt;
-    b: &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;br&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;&amp;lt;!--name属性用于将网页中的值传递给服务器--&amp;gt;&lt;/span&gt;
-
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;views.py&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.http&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.shortcuts&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'index.html'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;# 这里的'a'就是上面的name标签&lt;/span&gt;
-	
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;urls.py&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;urlpatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^admin/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^index/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;learn_views&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;# 表单页面&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^add/$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;learn_views&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'add'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;# 提交后的结果页面&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;POST方式提交表单&lt;/strong&gt;&lt;br /&gt;
-在对应app目录下新建forms.py&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forms&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AddForm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;views.py&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;.forms&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AddForm&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'POST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;c&quot;&gt;# 当表单以 POST 方式提交的时候&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AddForm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-            &lt;span class=&quot;c&quot;&gt;# 如果提交的数据合法&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cleaned_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cleaned_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-			&lt;span class=&quot;c&quot;&gt;# cleaned_data用于读取表单返回值&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;c&quot;&gt;# 正常方位时&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AddForm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'index.html'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'form'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;index.html&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;Please Input 2 numbers:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'post'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    { % csrf_token % }
-    { { form } }
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;urls.py&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;urlpatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^admin/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'^$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc_views&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'home'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Victor LI</name></author><category term="python3" /><category term="Django" /><summary type="html">做一个小工具要用到Django，简单熟悉一下Django创建项目的流程并记录一些需要注意的地方，之前已经搭建过Django开发环境，所以跳过这步。 直接从建立项目开始。</summary></entry><entry><title type="html">Test</title><link href="/test/2017/08/14/test/" rel="alternate" type="text/html" title="Test" /><published>2017-08-14T00:00:00+08:00</published><updated>2017-08-14T00:00:00+08:00</updated><id>/test/2017/08/14/test</id><content type="html" xml:base="/test/2017/08/14/test/">&lt;p&gt;用于测试&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-25T15:58:57+08:00</updated><id>http://localhost:4000/</id><title type="html">Victor’s Blog</title><subtitle>This is Victor's blog.</subtitle><author><name>Victor LI</name></author><entry><title type="html">Test</title><link href="http://localhost:4000/test/2017/08/14/test/" rel="alternate" type="text/html" title="Test" /><published>2017-08-14T00:00:00+08:00</published><updated>2017-08-14T00:00:00+08:00</updated><id>http://localhost:4000/test/2017/08/14/test</id><content type="html" xml:base="http://localhost:4000/test/2017/08/14/test/">&lt;p&gt;用于测试&lt;br /&gt;
 到这里是摘要。&lt;/p&gt;
 
 &lt;!--more--&gt;
@@ -462,7 +49,9 @@ Person.objects.filter(name__contains=&quot;abc&quot;).exclude(age = 23)
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;另一个一级标题&quot;&gt;另一个一级标题&lt;/h3&gt;</content><author><name>Victor LI</name></author><summary type="html">用于测试 到这里是摘要。</summary></entry><entry><title type="html">Python虚拟环境</title><link href="/ubuntu/python/tutorial/2017/08/11/virtualenv/" rel="alternate" type="text/html" title="Python虚拟环境" /><published>2017-08-11T00:00:00+08:00</published><updated>2017-08-11T00:00:00+08:00</updated><id>/ubuntu/python/tutorial/2017/08/11/virtualenv</id><content type="html" xml:base="/ubuntu/python/tutorial/2017/08/11/virtualenv/">&lt;h2 id=&quot;安装virtualenv&quot;&gt;安装virtualenv&lt;/h2&gt;
+&lt;h3 id=&quot;另一个一级标题&quot;&gt;另一个一级标题&lt;/h3&gt;
+
+&lt;p&gt;new test&lt;/p&gt;</content><author><name>Victor LI</name></author><summary type="html">用于测试 到这里是摘要。</summary></entry><entry><title type="html">Python虚拟环境</title><link href="http://localhost:4000/ubuntu/python/tutorial/2017/08/11/virtualenv/" rel="alternate" type="text/html" title="Python虚拟环境" /><published>2017-08-11T00:00:00+08:00</published><updated>2017-08-11T00:00:00+08:00</updated><id>http://localhost:4000/ubuntu/python/tutorial/2017/08/11/virtualenv</id><content type="html" xml:base="http://localhost:4000/ubuntu/python/tutorial/2017/08/11/virtualenv/">&lt;h2 id=&quot;安装virtualenv&quot;&gt;安装virtualenv&lt;/h2&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ pip install virtualenv
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -485,7 +74,7 @@ Person.objects.filter(name__contains=&quot;abc&quot;).exclude(age = 23)
 &lt;h2 id=&quot;删除环境&quot;&gt;删除环境&lt;/h2&gt;
 &lt;blockquote&gt;
   &lt;p&gt;删除对应文件夹&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Victor LI</name></author><category term="python3" /><summary type="html">安装virtualenv $ pip install virtualenv 创建环境 $ virtualenv venv_name 激活环境 $ source venv_name/bin/activate 退出环境 $ deactivate 删除环境 删除对应文件夹</summary></entry><entry><title type="html">Ubuntu搭建jekyll环境</title><link href="/ubuntu/web/2017/08/11/build-jekyll-in-ubuntu/" rel="alternate" type="text/html" title="Ubuntu搭建jekyll环境" /><published>2017-08-11T00:00:00+08:00</published><updated>2017-08-11T00:00:00+08:00</updated><id>/ubuntu/web/2017/08/11/build-jekyll-in-ubuntu</id><content type="html" xml:base="/ubuntu/web/2017/08/11/build-jekyll-in-ubuntu/">&lt;p&gt;jekyll环境搭建&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Victor LI</name></author><category term="python3" /><summary type="html">安装virtualenv $ pip install virtualenv 创建环境 $ virtualenv venv_name 激活环境 $ source venv_name/bin/activate 退出环境 $ deactivate 删除环境 删除对应文件夹</summary></entry><entry><title type="html">Ubuntu搭建jekyll环境</title><link href="http://localhost:4000/ubuntu/web/2017/08/11/build-jekyll-in-ubuntu/" rel="alternate" type="text/html" title="Ubuntu搭建jekyll环境" /><published>2017-08-11T00:00:00+08:00</published><updated>2017-08-11T00:00:00+08:00</updated><id>http://localhost:4000/ubuntu/web/2017/08/11/build-jekyll-in-ubuntu</id><content type="html" xml:base="http://localhost:4000/ubuntu/web/2017/08/11/build-jekyll-in-ubuntu/">&lt;p&gt;jekyll环境搭建&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -536,7 +125,7 @@ $ sudo gem install bundler
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
 $ jekyll serve
 &lt;/code&gt;
-浏览器输入&lt;code class=&quot;highlighter-rouge&quot;&gt;127.0.0.1:4000&lt;/code&gt;&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="jekyll" /><summary type="html">jekyll环境搭建</summary></entry><entry><title type="html">MySQL命令</title><link href="/database/2017/08/04/mysql-command/" rel="alternate" type="text/html" title="MySQL命令" /><published>2017-08-04T00:00:00+08:00</published><updated>2017-08-04T00:00:00+08:00</updated><id>/database/2017/08/04/mysql-command</id><content type="html" xml:base="/database/2017/08/04/mysql-command/">&lt;p&gt;记录mysql命令&lt;/p&gt;
+浏览器输入&lt;code class=&quot;highlighter-rouge&quot;&gt;127.0.0.1:4000&lt;/code&gt;&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="jekyll" /><summary type="html">jekyll环境搭建</summary></entry><entry><title type="html">MySQL命令</title><link href="http://localhost:4000/database/2017/08/04/mysql-command/" rel="alternate" type="text/html" title="MySQL命令" /><published>2017-08-04T00:00:00+08:00</published><updated>2017-08-04T00:00:00+08:00</updated><id>http://localhost:4000/database/2017/08/04/mysql-command</id><content type="html" xml:base="http://localhost:4000/database/2017/08/04/mysql-command/">&lt;p&gt;记录mysql命令&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -584,7 +173,7 @@ default-character-set=utf8
       &lt;/div&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Victor LI</name></author><category term="mysql" /><summary type="html">记录mysql命令</summary></entry><entry><title type="html">Jumpserver</title><link href="/2017/08/04/jumpserver/" rel="alternate" type="text/html" title="Jumpserver" /><published>2017-08-04T00:00:00+08:00</published><updated>2017-08-04T00:00:00+08:00</updated><id>/2017/08/04/jumpserver</id><content type="html" xml:base="/2017/08/04/jumpserver/"></content><author><name>Victor LI</name></author><summary type="html"></summary></entry><entry><title type="html">解决每次git push都要输入用户密码的问题</title><link href="/tutorial/2017/08/04/git-push-https-to-ssh/" rel="alternate" type="text/html" title="解决每次git push都要输入用户密码的问题" /><published>2017-08-04T00:00:00+08:00</published><updated>2017-08-04T00:00:00+08:00</updated><id>/tutorial/2017/08/04/git-push-https-to-ssh</id><content type="html" xml:base="/tutorial/2017/08/04/git-push-https-to-ssh/">&lt;h2 id=&quot;解决每次git-push都要输入用户密码的问题&quot;&gt;解决每次git push都要输入用户密码的问题&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>Victor LI</name></author><category term="mysql" /><summary type="html">记录mysql命令</summary></entry><entry><title type="html">Jumpserver</title><link href="http://localhost:4000/2017/08/04/jumpserver/" rel="alternate" type="text/html" title="Jumpserver" /><published>2017-08-04T00:00:00+08:00</published><updated>2017-08-04T00:00:00+08:00</updated><id>http://localhost:4000/2017/08/04/jumpserver</id><content type="html" xml:base="http://localhost:4000/2017/08/04/jumpserver/"></content><author><name>Victor LI</name></author><summary type="html"></summary></entry><entry><title type="html">解决每次git push都要输入用户密码的问题</title><link href="http://localhost:4000/tutorial/2017/08/04/git-push-https-to-ssh/" rel="alternate" type="text/html" title="解决每次git push都要输入用户密码的问题" /><published>2017-08-04T00:00:00+08:00</published><updated>2017-08-04T00:00:00+08:00</updated><id>http://localhost:4000/tutorial/2017/08/04/git-push-https-to-ssh</id><content type="html" xml:base="http://localhost:4000/tutorial/2017/08/04/git-push-https-to-ssh/">&lt;h2 id=&quot;解决每次git-push都要输入用户密码的问题&quot;&gt;解决每次git push都要输入用户密码的问题&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;问题原因：&lt;/strong&gt;
 连接远程仓库时用的https方式而不是ssh方式。&lt;/p&gt;
@@ -637,14 +226,14 @@ Permission denied (publickey).
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;em&gt;注：不同用户的公私钥是独立的，包括root用户和普通用户，所以添加普通用户的公钥后，root用户还是无法正常用SSH的，还需单独添加。&lt;/em&gt;&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><summary type="html">解决每次git push都要输入用户密码的问题 问题原因： 连接远程仓库时用的https方式而不是ssh方式。 解决方法： 改成ssh方式</summary></entry><entry><title type="html">Use Markdown</title><link href="/test/2017/08/03/markdown-test/" rel="alternate" type="text/html" title="Use Markdown" /><published>2017-08-03T00:00:00+08:00</published><updated>2017-08-03T00:00:00+08:00</updated><id>/test/2017/08/03/markdown-test</id><content type="html" xml:base="/test/2017/08/03/markdown-test/">&lt;h2 id=&quot;why-markdown&quot;&gt;Why Markdown&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;注：不同用户的公私钥是独立的，包括root用户和普通用户，所以添加普通用户的公钥后，root用户还是无法正常用SSH的，还需单独添加。&lt;/em&gt;&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><summary type="html">解决每次git push都要输入用户密码的问题 问题原因： 连接远程仓库时用的https方式而不是ssh方式。 解决方法： 改成ssh方式</summary></entry><entry><title type="html">Use Markdown</title><link href="http://localhost:4000/test/2017/08/03/markdown-test/" rel="alternate" type="text/html" title="Use Markdown" /><published>2017-08-03T00:00:00+08:00</published><updated>2017-08-03T00:00:00+08:00</updated><id>http://localhost:4000/test/2017/08/03/markdown-test</id><content type="html" xml:base="http://localhost:4000/test/2017/08/03/markdown-test/">&lt;h2 id=&quot;why-markdown&quot;&gt;Why Markdown&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;look good&lt;/li&gt;
   &lt;li&gt;why not&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;how-to-use&quot;&gt;How to use&lt;/h2&gt;</content><author><name>Victor LI</name></author><category term="markdown" /><summary type="html">Why Markdown</summary></entry><entry><title type="html">Ubuntu中安装Django</title><link href="/tutorial/web/python/2017/08/03/install-django-in-ubuntu/" rel="alternate" type="text/html" title="Ubuntu中安装Django" /><published>2017-08-03T00:00:00+08:00</published><updated>2017-08-03T00:00:00+08:00</updated><id>/tutorial/web/python/2017/08/03/install-django-in-ubuntu</id><content type="html" xml:base="/tutorial/web/python/2017/08/03/install-django-in-ubuntu/">&lt;h2&gt;Ubuntu中安装Django&lt;/h2&gt;
+&lt;h2 id=&quot;how-to-use&quot;&gt;How to use&lt;/h2&gt;</content><author><name>Victor LI</name></author><category term="markdown" /><summary type="html">Why Markdown</summary></entry><entry><title type="html">Ubuntu中安装Django</title><link href="http://localhost:4000/tutorial/web/python/2017/08/03/install-django-in-ubuntu/" rel="alternate" type="text/html" title="Ubuntu中安装Django" /><published>2017-08-03T00:00:00+08:00</published><updated>2017-08-03T00:00:00+08:00</updated><id>http://localhost:4000/tutorial/web/python/2017/08/03/install-django-in-ubuntu</id><content type="html" xml:base="http://localhost:4000/tutorial/web/python/2017/08/03/install-django-in-ubuntu/">&lt;h2&gt;Ubuntu中安装Django&lt;/h2&gt;
 
 &lt;p&gt;
 平时习惯用python3，所以下面的安装过程都是基于python3&lt;br/&gt;
@@ -667,7 +256,7 @@ $ python3
 &gt;&gt;&gt; django.get_version()
 &lt;/pre&gt;
 显示Django版本表示正确安装
-&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><category term="Django" /><category term="python3" /><summary type="html">Ubuntu中安装Django 平时习惯用python3，所以下面的安装过程都是基于python3</summary></entry><entry><title type="html">The tutorial of building a blog with Github Pages and Jekyll</title><link href="/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog/" rel="alternate" type="text/html" title="The tutorial of building a blog with Github Pages and Jekyll" /><published>2017-08-02T00:00:00+08:00</published><updated>2017-08-02T00:00:00+08:00</updated><id>/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog</id><content type="html" xml:base="/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog/">&lt;h2&gt;The tutorial of building a blog with Github Pages and Jekyll&lt;/h2&gt;
+&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><category term="Django" /><category term="python3" /><summary type="html">Ubuntu中安装Django 平时习惯用python3，所以下面的安装过程都是基于python3</summary></entry><entry><title type="html">The tutorial of building a blog with Github Pages and Jekyll</title><link href="http://localhost:4000/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog/" rel="alternate" type="text/html" title="The tutorial of building a blog with Github Pages and Jekyll" /><published>2017-08-02T00:00:00+08:00</published><updated>2017-08-02T00:00:00+08:00</updated><id>http://localhost:4000/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog</id><content type="html" xml:base="http://localhost:4000/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog/">&lt;h2&gt;The tutorial of building a blog with Github Pages and Jekyll&lt;/h2&gt;
 
 &lt;p&gt;
 Today I learn to build a blog with Github Pages and Jekyll. Here recommend two very good tutorials.
@@ -675,4 +264,8 @@ Today I learn to build a blog with Github Pages and Jekyll. Here recommend two v
 &lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot; target=&quot;_blank&quot;&gt;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&lt;/a&gt;
 &lt;br/&gt;&lt;br/&gt;
 &lt;a href=&quot;http://blog.csdn.net/on_1y/article/details/19259435&quot; target=&quot;_blank&quot;&gt;http://blog.csdn.net/on_1y/article/details/19259435&lt;/a&gt;
-&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><summary type="html">The tutorial of building a blog with Github Pages and Jekyll</summary></entry></feed>
+&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><summary type="html">The tutorial of building a blog with Github Pages and Jekyll</summary></entry><entry><title type="html">Hello World!</title><link href="http://localhost:4000/test/2017/08/02/hello-world/" rel="alternate" type="text/html" title="Hello World!" /><published>2017-08-02T00:00:00+08:00</published><updated>2017-08-02T00:00:00+08:00</updated><id>http://localhost:4000/test/2017/08/02/hello-world</id><content type="html" xml:base="http://localhost:4000/test/2017/08/02/hello-world/">&lt;h2&gt;Hello World!&lt;/h2&gt;
+
+&lt;p&gt;My first article&lt;/p&gt;
+
+&lt;p&gt;02 Aug 2017&lt;/p&gt;</content><author><name>Victor LI</name></author><summary type="html">Hello World!</summary></entry></feed>
