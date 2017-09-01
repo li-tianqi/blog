@@ -121,7 +121,7 @@ edit_commit_message()
 
 
 
-git checkout source
+git checkout master
 
 echo "*********************************************************"
 
@@ -132,7 +132,7 @@ echo "build done"
 echo "*********************************************************"
 
 echo "git add ..."
-git add .
+git add -A
 echo "add done"
 
 echo -e "\n*********************************************************"
@@ -162,20 +162,26 @@ echo "commit done"
 echo "*********************************************************"
 
 echo "git push ..."
-git push origin source
+git push origin master
 echo "push done"
 
 echo "*********************************************************"
 
-echo "copy _site to master..."
+echo "copy _site to gh-pages..."
+if [ ! -x "../tmp/" ]; then
+    mkdir "../tmp/"
+fi
+
 cp -r _site/ ../tmp/
-git checkout master
+git checkout gh-pages
 rm -r ./*
 cp -r ../tmp/_site/* ./
-git add .
+rm -r ../tmp/*
+
+git add -A
 git commit -m "deploy blog"
-git push origin master
-git checkout source
+git push origin gh-pages
+git checkout master
 
 echo "*********************************************************"
 
