@@ -2,6 +2,106 @@
 <search>
   
     <entry>
+      <title><![CDATA[shell输出彩色字符]]></title>
+      <url>/ubuntu/shell/2017/09/01/shell-echo-color/</url>
+      <content type="html"><![CDATA[<!--categories: [Ubuntu, Database, Python, Github, Web, Tutorial, Test, Shell, ]-->
+<!--tags: [jekyll, python3, github, Django, markdown, mysql, shell, ]-->
+
+<h2 id="shell打印输出彩色字符">shell打印输出彩色字符</h2>
+
+<p>shell中echo输出字符，设置字体颜色和背景颜色的方法：</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[背景颜色； 文字颜色m字符串</span><span class="se">\0</span><span class="s2">33[0m"</span>
+</code></pre>
+</div>
+
+<!--more-->
+
+<p><strong>说明：</strong><br />
+<code class="highlighter-rouge">-e</code>: echo的选项参数，用于激活特殊字符解释器<br />
+<code class="highlighter-rouge">\033</code>：引导非常规字符序列<br />
+<code class="highlighter-rouge">m</code>: 设置属性并结束非常规字符序列</p>
+
+<p><strong>举例：</strong></p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[44;37;5mME</span><span class="se">\0</span><span class="s2">33[0m COOL"</span>  
+</code></pre>
+</div>
+<p>输出<code class="highlighter-rouge">ME COOL</code>,其中<code class="highlighter-rouge">ME</code>为蓝底白字，<code class="highlighter-rouge">COOL</code>为普通，光标闪烁。</p>
+
+<p><strong>可用编码及含义：</strong><br />
+| 编码 |    颜色/动作                              |
+| —- |:—————————————– |
+|  0   |    重新设置属性到缺省设置                 |
+|  1   |    设置粗体                               |
+|  2   |    设置一半亮度（模拟彩色显示器的颜色）   |
+|  4   |    设置下划线（模拟彩色显示器的颜色）     | 
+|  5   |    设置闪烁                               |
+|  7   |    设置反向图象                           |
+|  22  |    设置一般密度                           |
+|  24  |    关闭下划线                             |
+|  25  |    关闭闪烁                               |
+|  27  |    关闭反向图象                           |
+|  30  |    设置黑色前景                           |
+|  31  |    设置红色前景                           |
+|  32  |    设置绿色前景                           |
+|  33  |    设置棕色前景                           |
+|  34  |    设置蓝色前景                           |
+|  35  |    设置紫色前景                           |
+|  36  |    设置青色前景                           |
+|  37  |    设置白色前景                           |
+|  38  |    在缺省的前景颜色上设置下划线           |
+|  39  |    在缺省的前景颜色上关闭下划线           |
+|  40  |    设置黑色背景                           |
+|  41  |    设置红色背景                           |
+|  42  |    设置绿色背景                           |
+|  43  |    设置棕色背景                           |
+|  44  |    设置蓝色背景                           |
+|  45  |    设置紫色背景                           |
+|  46  |    设置青色背景                           |
+|  47  |    设置白色背景                           |
+|  49  |    设置缺省黑色背景                       |</p>
+
+<p><strong>常用组合：</strong></p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[31m 红色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[34m 黄色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[41;33m 红底黄字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[41;37m 红底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span>
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[30m 黑色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[31m 红色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[32m 绿色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[33m 黄色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[34m 蓝色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[35m 紫色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[36m 天蓝字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[37m 白色字 </span><span class="se">\0</span><span class="s2">33[0m"</span>
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[40;37m 黑底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[41;37m 红底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[42;37m 绿底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[43;37m 黄底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[44;37m 蓝底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[45;37m 紫底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[46;37m 天蓝底白字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[47;30m 白底黑字 </span><span class="se">\0</span><span class="s2">33[0m"</span>
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[42;30;5m wwww </span><span class="se">\0</span><span class="s2">33[0m"</span> 
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[47;30;5m wwww </span><span class="se">\0</span><span class="s2">33[0m"</span>
+</code></pre>
+</div>
+]]></content>
+      <categories>
+        
+          <category> Ubuntu </category>
+        
+          <category> Shell </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> shell </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Django学习记录]]></title>
       <url>/python/web/2017/08/15/django-practice/</url>
       <content type="html"><![CDATA[<p>做一个小工具要用到Django，简单熟悉一下Django创建项目的流程并记录一些需要注意的地方，之前已经搭建过Django开发环境，所以跳过这步。<br />
