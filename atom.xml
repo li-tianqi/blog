@@ -1,4 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="/atom.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-01T14:05:21+08:00</updated><id>/</id><title type="html">Victor’s Blog</title><subtitle>This is Victor's blog.</subtitle><author><name>Victor LI</name></author><entry><title type="html">Django学习记录</title><link href="/python/web/2017/08/15/django-practice/" rel="alternate" type="text/html" title="Django学习记录" /><published>2017-08-15T00:00:00+08:00</published><updated>2017-08-15T00:00:00+08:00</updated><id>/python/web/2017/08/15/django-practice</id><content type="html" xml:base="/python/web/2017/08/15/django-practice/">&lt;p&gt;做一个小工具要用到Django，简单熟悉一下Django创建项目的流程并记录一些需要注意的地方，之前已经搭建过Django开发环境，所以跳过这步。&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="/atom.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-01T16:06:48+08:00</updated><id>/</id><title type="html">Victor’s Blog</title><subtitle>This is Victor's blog.</subtitle><author><name>Victor LI</name></author><entry><title type="html">shell输出彩色字符</title><link href="/ubuntu/shell/2017/09/01/shell-echo-color/" rel="alternate" type="text/html" title="shell输出彩色字符" /><published>2017-09-01T00:00:00+08:00</published><updated>2017-09-01T00:00:00+08:00</updated><id>/ubuntu/shell/2017/09/01/shell-echo-color</id><content type="html" xml:base="/ubuntu/shell/2017/09/01/shell-echo-color/">&lt;!--categories: [Ubuntu, Database, Python, Github, Web, Tutorial, Test, Shell, ]--&gt;
+&lt;!--tags: [jekyll, python3, github, Django, markdown, mysql, shell, ]--&gt;
+
+&lt;h2 id=&quot;shell打印输出彩色字符&quot;&gt;shell打印输出彩色字符&lt;/h2&gt;
+
+&lt;p&gt;shell中echo输出字符，设置字体颜色和背景颜色的方法：&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[背景颜色； 文字颜色m字符串&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;-e&lt;/code&gt;: echo的选项参数，用于激活特殊字符解释器&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;\033&lt;/code&gt;：引导非常规字符序列&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt;: 设置属性并结束非常规字符序列&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;举例：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[44;37;5mME&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m COOL&quot;&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;输出&lt;code class=&quot;highlighter-rouge&quot;&gt;ME COOL&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;ME&lt;/code&gt;为蓝底白字，&lt;code class=&quot;highlighter-rouge&quot;&gt;COOL&lt;/code&gt;为普通，光标闪烁。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;可用编码及含义：&lt;/strong&gt;&lt;br /&gt;
+| 编码 |    颜色/动作                              |
+| —- |:—————————————– |
+|  0   |    重新设置属性到缺省设置                 |
+|  1   |    设置粗体                               |
+|  2   |    设置一半亮度（模拟彩色显示器的颜色）   |
+|  4   |    设置下划线（模拟彩色显示器的颜色）     | 
+|  5   |    设置闪烁                               |
+|  7   |    设置反向图象                           |
+|  22  |    设置一般密度                           |
+|  24  |    关闭下划线                             |
+|  25  |    关闭闪烁                               |
+|  27  |    关闭反向图象                           |
+|  30  |    设置黑色前景                           |
+|  31  |    设置红色前景                           |
+|  32  |    设置绿色前景                           |
+|  33  |    设置棕色前景                           |
+|  34  |    设置蓝色前景                           |
+|  35  |    设置紫色前景                           |
+|  36  |    设置青色前景                           |
+|  37  |    设置白色前景                           |
+|  38  |    在缺省的前景颜色上设置下划线           |
+|  39  |    在缺省的前景颜色上关闭下划线           |
+|  40  |    设置黑色背景                           |
+|  41  |    设置红色背景                           |
+|  42  |    设置绿色背景                           |
+|  43  |    设置棕色背景                           |
+|  44  |    设置蓝色背景                           |
+|  45  |    设置紫色背景                           |
+|  46  |    设置青色背景                           |
+|  47  |    设置白色背景                           |
+|  49  |    设置缺省黑色背景                       |&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;常用组合：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[31m 红色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[34m 黄色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[41;33m 红底黄字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[41;37m 红底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[30m 黑色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[31m 红色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[32m 绿色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[33m 黄色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[34m 蓝色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[35m 紫色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[36m 天蓝字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[37m 白色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[40;37m 黑底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[41;37m 红底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[42;37m 绿底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[43;37m 黄底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[44;37m 蓝底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[45;37m 紫底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[46;37m 天蓝底白字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[47;30m 白底黑字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[42;30;5m wwww &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[47;30;5m wwww &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>Victor LI</name></author><category term="shell" /><summary type="html">shell打印输出彩色字符 shell中echo输出字符，设置字体颜色和背景颜色的方法： echo -e &quot;\033[背景颜色； 文字颜色m字符串\033[0m&quot;</summary></entry><entry><title type="html">Django学习记录</title><link href="/python/web/2017/08/15/django-practice/" rel="alternate" type="text/html" title="Django学习记录" /><published>2017-08-15T00:00:00+08:00</published><updated>2017-08-15T00:00:00+08:00</updated><id>/python/web/2017/08/15/django-practice</id><content type="html" xml:base="/python/web/2017/08/15/django-practice/">&lt;p&gt;做一个小工具要用到Django，简单熟悉一下Django创建项目的流程并记录一些需要注意的地方，之前已经搭建过Django开发环境，所以跳过这步。&lt;br /&gt;
 直接从建立项目开始。&lt;/p&gt;
 
 &lt;!--more--&gt;
@@ -669,12 +749,4 @@ $ python3
 &gt;&gt;&gt; django.get_version()
 &lt;/pre&gt;
 显示Django版本表示正确安装
-&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><category term="Django" /><category term="python3" /><summary type="html">Ubuntu中安装Django 平时习惯用python3，所以下面的安装过程都是基于python3</summary></entry><entry><title type="html">The tutorial of building a blog with Github Pages and Jekyll</title><link href="/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog/" rel="alternate" type="text/html" title="The tutorial of building a blog with Github Pages and Jekyll" /><published>2017-08-02T00:00:00+08:00</published><updated>2017-08-02T00:00:00+08:00</updated><id>/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog</id><content type="html" xml:base="/tutorial/web/github/2017/08/02/the-tutorial-of-building-a-blog/">&lt;h2&gt;The tutorial of building a blog with Github Pages and Jekyll&lt;/h2&gt;
-
-&lt;p&gt;
-Today I learn to build a blog with Github Pages and Jekyll. Here recommend two very good tutorials.
-&lt;br/&gt;&lt;br/&gt;
-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot; target=&quot;_blank&quot;&gt;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&lt;/a&gt;
-&lt;br/&gt;&lt;br/&gt;
-&lt;a href=&quot;http://blog.csdn.net/on_1y/article/details/19259435&quot; target=&quot;_blank&quot;&gt;http://blog.csdn.net/on_1y/article/details/19259435&lt;/a&gt;
-&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><summary type="html">The tutorial of building a blog with Github Pages and Jekyll</summary></entry></feed>
+&lt;/p&gt;</content><author><name>Victor LI</name></author><category term="github" /><category term="jekyll" /><category term="Django" /><category term="python3" /><summary type="html">Ubuntu中安装Django 平时习惯用python3，所以下面的安装过程都是基于python3</summary></entry></feed>
