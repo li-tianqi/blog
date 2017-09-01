@@ -427,38 +427,134 @@
 </div>
 <p>输出<code class="highlighter-rouge">ME COOL</code>,其中<code class="highlighter-rouge">ME</code>为蓝底白字，<code class="highlighter-rouge">COOL</code>为普通，光标闪烁。</p>
 
-<p><strong>可用编码及含义：</strong><br />
-| 编码 |    颜色/动作                              |
-| —- |:—————————————– |
-|  0   |    重新设置属性到缺省设置                 |
-|  1   |    设置粗体                               |
-|  2   |    设置一半亮度（模拟彩色显示器的颜色）   |
-|  4   |    设置下划线（模拟彩色显示器的颜色）     | 
-|  5   |    设置闪烁                               |
-|  7   |    设置反向图象                           |
-|  22  |    设置一般密度                           |
-|  24  |    关闭下划线                             |
-|  25  |    关闭闪烁                               |
-|  27  |    关闭反向图象                           |
-|  30  |    设置黑色前景                           |
-|  31  |    设置红色前景                           |
-|  32  |    设置绿色前景                           |
-|  33  |    设置棕色前景                           |
-|  34  |    设置蓝色前景                           |
-|  35  |    设置紫色前景                           |
-|  36  |    设置青色前景                           |
-|  37  |    设置白色前景                           |
-|  38  |    在缺省的前景颜色上设置下划线           |
-|  39  |    在缺省的前景颜色上关闭下划线           |
-|  40  |    设置黑色背景                           |
-|  41  |    设置红色背景                           |
-|  42  |    设置绿色背景                           |
-|  43  |    设置棕色背景                           |
-|  44  |    设置蓝色背景                           |
-|  45  |    设置紫色背景                           |
-|  46  |    设置青色背景                           |
-|  47  |    设置白色背景                           |
-|  49  |    设置缺省黑色背景                       |</p>
+<p><strong>可用编码及含义：</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>编码</th>
+      <th style="text-align: left">颜色/动作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td style="text-align: left">重新设置属性到缺省设置</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td style="text-align: left">设置粗体</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td style="text-align: left">设置一半亮度（模拟彩色显示器的颜色）</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td style="text-align: left">设置下划线（模拟彩色显示器的颜色）</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td style="text-align: left">设置闪烁</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td style="text-align: left">设置反向图象</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td style="text-align: left">设置一般密度</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td style="text-align: left">关闭下划线</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td style="text-align: left">关闭闪烁</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td style="text-align: left">关闭反向图象</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td style="text-align: left">设置黑色前景</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td style="text-align: left">设置红色前景</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td style="text-align: left">设置绿色前景</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td style="text-align: left">设置棕色前景</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td style="text-align: left">设置蓝色前景</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td style="text-align: left">设置紫色前景</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td style="text-align: left">设置青色前景</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td style="text-align: left">设置白色前景</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td style="text-align: left">在缺省的前景颜色上设置下划线</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td style="text-align: left">在缺省的前景颜色上关闭下划线</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td style="text-align: left">设置黑色背景</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td style="text-align: left">设置红色背景</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td style="text-align: left">设置绿色背景</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td style="text-align: left">设置棕色背景</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td style="text-align: left">设置蓝色背景</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td style="text-align: left">设置紫色背景</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td style="text-align: left">设置青色背景</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td style="text-align: left">设置白色背景</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td style="text-align: left">设置缺省黑色背景</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><strong>常用组合：</strong></p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\0</span><span class="s2">33[31m 红色字 </span><span class="se">\0</span><span class="s2">33[0m"</span> 
