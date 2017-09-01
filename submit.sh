@@ -137,18 +137,22 @@ echo "add done"
 
 echo -e "\n*********************************************************"
 
-while true
-do
-	edit_commit_message
-	echo "========================================"
-	echo -e "your message is: \n $message"
-	echo "go on? (y/n): "
-	read key4
-	if [ $key4=='y' ]
-	then
-		break
-	fi
-done
+if [ $1=='1' ]; then
+    message="feat($2): new post"
+else
+	while true
+	do
+		edit_commit_message
+		echo "========================================"
+		echo -e "your message is: \n $message"
+		echo "go on? (y/n): "
+		read key4
+		if [ $key4=='y' ]
+		then
+			break
+		fi
+	done
+fi
 
 echo "----------------------------------------"
 echo "edit message done"
