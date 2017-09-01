@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="/atom.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-01T16:06:48+08:00</updated><id>/</id><title type="html">Victor’s Blog</title><subtitle>This is Victor's blog.</subtitle><author><name>Victor LI</name></author><entry><title type="html">shell输出彩色字符</title><link href="/ubuntu/shell/2017/09/01/shell-echo-color/" rel="alternate" type="text/html" title="shell输出彩色字符" /><published>2017-09-01T00:00:00+08:00</published><updated>2017-09-01T00:00:00+08:00</updated><id>/ubuntu/shell/2017/09/01/shell-echo-color</id><content type="html" xml:base="/ubuntu/shell/2017/09/01/shell-echo-color/">&lt;!--categories: [Ubuntu, Database, Python, Github, Web, Tutorial, Test, Shell, ]--&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="/atom.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-01T16:26:33+08:00</updated><id>/</id><title type="html">Victor’s Blog</title><subtitle>This is Victor's blog.</subtitle><author><name>Victor LI</name></author><entry><title type="html">shell输出彩色字符</title><link href="/ubuntu/shell/2017/09/01/shell-echo-color/" rel="alternate" type="text/html" title="shell输出彩色字符" /><published>2017-09-01T00:00:00+08:00</published><updated>2017-09-01T00:00:00+08:00</updated><id>/ubuntu/shell/2017/09/01/shell-echo-color</id><content type="html" xml:base="/ubuntu/shell/2017/09/01/shell-echo-color/">&lt;!--categories: [Ubuntu, Database, Python, Github, Web, Tutorial, Test, Shell, ]--&gt;
 &lt;!--tags: [jekyll, python3, github, Django, markdown, mysql, shell, ]--&gt;
 
 &lt;h2 id=&quot;shell打印输出彩色字符&quot;&gt;shell打印输出彩色字符&lt;/h2&gt;
@@ -21,38 +21,134 @@
 &lt;/div&gt;
 &lt;p&gt;输出&lt;code class=&quot;highlighter-rouge&quot;&gt;ME COOL&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;ME&lt;/code&gt;为蓝底白字，&lt;code class=&quot;highlighter-rouge&quot;&gt;COOL&lt;/code&gt;为普通，光标闪烁。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;可用编码及含义：&lt;/strong&gt;&lt;br /&gt;
-| 编码 |    颜色/动作                              |
-| —- |:—————————————– |
-|  0   |    重新设置属性到缺省设置                 |
-|  1   |    设置粗体                               |
-|  2   |    设置一半亮度（模拟彩色显示器的颜色）   |
-|  4   |    设置下划线（模拟彩色显示器的颜色）     | 
-|  5   |    设置闪烁                               |
-|  7   |    设置反向图象                           |
-|  22  |    设置一般密度                           |
-|  24  |    关闭下划线                             |
-|  25  |    关闭闪烁                               |
-|  27  |    关闭反向图象                           |
-|  30  |    设置黑色前景                           |
-|  31  |    设置红色前景                           |
-|  32  |    设置绿色前景                           |
-|  33  |    设置棕色前景                           |
-|  34  |    设置蓝色前景                           |
-|  35  |    设置紫色前景                           |
-|  36  |    设置青色前景                           |
-|  37  |    设置白色前景                           |
-|  38  |    在缺省的前景颜色上设置下划线           |
-|  39  |    在缺省的前景颜色上关闭下划线           |
-|  40  |    设置黑色背景                           |
-|  41  |    设置红色背景                           |
-|  42  |    设置绿色背景                           |
-|  43  |    设置棕色背景                           |
-|  44  |    设置蓝色背景                           |
-|  45  |    设置紫色背景                           |
-|  46  |    设置青色背景                           |
-|  47  |    设置白色背景                           |
-|  49  |    设置缺省黑色背景                       |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可用编码及含义：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;编码&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;颜色/动作&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;重新设置属性到缺省设置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置粗体&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置一半亮度（模拟彩色显示器的颜色）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置下划线（模拟彩色显示器的颜色）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置闪烁&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置反向图象&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;22&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置一般密度&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;24&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;关闭下划线&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;关闭闪烁&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;27&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;关闭反向图象&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;30&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置黑色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置红色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置绿色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;33&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置棕色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;34&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置蓝色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;35&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置紫色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;36&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置青色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;37&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置白色前景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;38&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;在缺省的前景颜色上设置下划线&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;39&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;在缺省的前景颜色上关闭下划线&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;40&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置黑色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;41&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置红色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;42&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置绿色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;43&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置棕色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;44&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置蓝色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;45&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置紫色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;46&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置青色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;47&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置白色背景&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;49&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;设置缺省黑色背景&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;&lt;strong&gt;常用组合：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[31m 红色字 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;33[0m&quot;&lt;/span&gt; 
