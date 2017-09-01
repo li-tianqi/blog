@@ -120,6 +120,9 @@ edit_commit_message()
 }
 
 
+
+git checkout source
+
 echo "*********************************************************"
 
 echo "jekyll build..."
@@ -159,8 +162,20 @@ echo "commit done"
 echo "*********************************************************"
 
 echo "git push ..."
-git push origin gh-pages
+git push origin source
 echo "push done"
+
+echo "*********************************************************"
+
+echo "copy _site to master..."
+cp -r _site/ ../tmp/
+git checkout master
+rm -r ./*
+cp -r ../tmp/_site/* ./
+git add .
+git commit -m "deploy blog"
+git push origin master
+git checkout source
 
 echo "*********************************************************"
 
