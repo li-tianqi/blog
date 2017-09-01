@@ -137,7 +137,7 @@ echo "add done"
 
 echo -e "\n*********************************************************"
 
-if [ ! -n "$1" ]; then
+if [ -n "$1" ]; then
     message="feat($1): new post"
     echo "message is: $message"
 else
