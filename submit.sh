@@ -137,8 +137,9 @@ echo "add done"
 
 echo -e "\n*********************************************************"
 
-if [ $1=='1' ]; then
-    message="feat($2): new post"
+if [ ! -n "$1" ]; then
+    message="feat($1): new post"
+    echo "message is: $message"
 else
 	while true
 	do
