@@ -121,13 +121,13 @@ edit_commit_message()
 
 
 
-git checkout master
+#git checkout master
 
-echo "*********************************************************"
+#echo "*********************************************************"
 
-echo "jekyll build..."
-bundle exec jekyll build
-echo "build done"
+#echo "jekyll build..."
+#bundle exec jekyll build
+#echo "build done"
 
 echo "*********************************************************"
 
@@ -167,11 +167,11 @@ echo "commit done"
 echo "*********************************************************"
 
 echo "git push ..."
-git push origin master
+git push origin gh-pages
 echo "push done"
 
 echo "*********************************************************"
-
+if false; then
 echo "copy _site to gh-pages..."
 if [ ! -x "../tmp/" ]; then
     mkdir "../tmp/"
@@ -189,5 +189,6 @@ git push origin gh-pages
 git checkout master
 
 echo "*********************************************************"
+fi
 
 echo "completed"
