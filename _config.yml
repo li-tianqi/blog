@@ -180,7 +180,8 @@ font:
   # Fallback to `global` font settings.
   headings:
     external: true
-    family: Roboto Slab
+    family: 
+    #Roboto Slab
 
   # Font settings for posts
   # Fallback to `global` font settings.
