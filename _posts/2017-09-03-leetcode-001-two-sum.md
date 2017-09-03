@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LeetCode 001: Two Sum
+title: LeetCode 001--Two Sum
 categories: [LeetCode]
 tags: 
 excerpt_separator: <!--more-->
