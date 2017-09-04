@@ -20,21 +20,21 @@ Linux子系统默认是未启用的，下面给出启用它的方法。
 对该功能的支持需要win10系统在一周年正式版及以上，也就是`1607`版以上  
 首先确认自己系统版本  
 在`设置-系统-关于`中查看`版本`，确保是`1607`以上，如果不是，请升级系统    
-![](https://github.com/li-tianqi/blog/blob/gh-pages/assets/post_images/20170904/01.png)
+![img01.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170904/01.png)
 
 我这里是`1703`版本  
 
 ### step2.启用开发人员模式
 在`设置-更新和安全-针对开发人员`中，选择`开发人员模式`，根据弹出窗口提示操作  
-![](https://github.com/li-tianqi/blog/blob/gh-pages/assets/post_images/20170904/02.png)
+![img02.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170904/02.png)
 
 ### step3.开启适用于Linux的Windows子系统
 打开`控制面板-程序-程序和功能-启用或关闭 Windows 功能`，勾选`适用于Linux的Windows子系统(Beta)`，根据弹出窗口提示操作，重启电脑  
 *注： `控制面板` 可通过 `小娜` 搜索打开,  `1703` 版之前还可以通过 `win+x` 快捷键选择控制面板功能*  
-![](https://github.com/li-tianqi/blog/blob/gh-pages/assets/post_images/20170904/03.png)
+![img03.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170904/03.png)
   
   
-![](https://github.com/li-tianqi/blog/blob/gh-pages/assets/post_images/20170904/04.png)
+![img04.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170904/04.png)
 
 ### step4.配置子系统
 重启后，打开`命令行`或`Windows PowerShell`，输入`bash`，回车，根据命令行提示，完成`Ubuntu`的配置（包括用户名，密码等）  
@@ -56,4 +56,4 @@ Linux子系统默认是未启用的，下面给出启用它的方法。
 <!--百度：https://baike.baidu.com/item/Xming-->
 <!--wiki：https://en.wikipedia.org/wiki/Xming-->
 
-![](https://github.com/li-tianqi/blog/blob/gh-pages/assets/post_images/20170904/05.png)
+![img05.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170904/05.png)
