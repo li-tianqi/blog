@@ -71,6 +71,9 @@ plugins:
  - jekyll-sitemap
  - jekyll-feed
  - jekyll-mermaid
+ 
+ mermaid:
+ src: 'https://github.com/knsv/mermaid/blob/master/src/mermaid.js'
 
 # ---------------------------------------------------------------
 # Site Information Settings
