@@ -73,7 +73,7 @@ plugins:
  - jekyll-mermaid
  
 mermaid:
-  src: "https://github.com/knsv/mermaid/blob/master/src/mermaid.js"
+  src: "https://unpkg.com/mermaid@7.1.0/dist/mermaid.js"
 
 # ---------------------------------------------------------------
 # Site Information Settings
