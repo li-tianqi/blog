@@ -21,9 +21,8 @@ excerpt_separator: <!--more-->
 
 首先，整体分两部分，一部分是`舞台`，另一部分是`仓库`：
 
-<!-- 
-mermaid
 
+```mermaid
 graph LR
 frame(框架)-->stage(舞台)
 frame-->store(仓库)
@@ -40,9 +39,8 @@ stage-->fight(战斗系统)
 
 store-->scenelist(场景列表)
 store-->eventlist(事件列表)
-store-->characterlist(角色列表) 
--->
-
+store-->characterlist(角色列表))
+```
 ![img01.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170926/01.png)
 
 仓库用来存放各种实例，就像供等待演出的演员待的后台；舞台是演出展示的地方，每一时刻会有一个场景和一些角色在舞台上表演。所以根据剧情流程将不同的场景和角色载入到舞台即可。另外，舞台还需要有诸如碰撞检测，渲染，切换场景，按键检测，总体计时器等功能，对于像一些系统功能按钮以及展示系统角色等信息的UI界面，暂时放在舞台当中，还有战斗系统，也没想好具体怎么组织，暂时包含在舞台里。初期不打算做功能性UI界面和战斗系统，所以先放一放。
@@ -55,8 +53,8 @@ store-->characterlist(角色列表)
 
 场景应该作为一个很重要的部分
 
-<!-- 
-mermaid
+
+```mermaid
 graph LR
 scene(场景)-->sceneid(场景ID)
 scene-->map(地图对象)
@@ -68,7 +66,7 @@ scene-->coordinate(坐标信息)
 coordinate-->ci(场景绝对坐标,渲染坐标,图片坐标,主角在场景中的初始位置)
 scene-->eventlist(时间对象列表)
 scene-->subscene(子场景)
--->
+```
 ![img02.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170926/02.png)
 
 `场景ID`作为场景的唯一标识符；
@@ -85,8 +83,8 @@ scene-->subscene(子场景)
 
 物体对象可以作为其他对象的基类
 
-<!-- 
-mermaid
+
+```mermaid
 graph LR
 object(物体对象)-->id(对象ID)
 object-->coor(坐标)
@@ -102,7 +100,7 @@ son-->fight(战斗属性)
 fight-->1(精气神...)
 fight-->2(攻防速...)
 fight-->3(buff,debuff)
--->
+```
 ![img02.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170926/03.png)
 
 派生属性主要用于主角，敌人等会动的角色；
@@ -113,8 +111,8 @@ buff，defull等可能应该属于战斗系统，待定。
 
 这里事件指的是游戏中发生的事件，比如任务，战斗，说话等，不包括键盘等控制事件（*UI事件可以包括在这，可以把UI定义为一个对象，绑定一个事件*），这里的事件都和对象绑定，可能是NPC对象，地图对象，覆盖物对象，隐身对象等。
 
-<!-- 
-mermaid
+
+```mermaid
 graph LR
 event(事件)-->id(事件ID)
 event-->status(事件状态)
@@ -130,7 +128,7 @@ occur-->o4(随机)
 event-->way(触发方式)
 event-->condition(触发条件)
 event-->what(事件内容)
--->
+```
 ![img02.png](https://raw.githubusercontent.com/li-tianqi/blog/gh-pages/assets/post_images/20170926/04.png)
 
 在发生情况方面，事件有几种情况：
