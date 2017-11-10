@@ -25,7 +25,7 @@ word中用mathtype: 直接输入由`$$` 包裹的latex公式, 按`Alt`+`\` 生�
 
 更多内容:  <https://zh.wikibooks.org/wiki/LaTeX>
 
-希腊字母: https://en.wikipedia.org/wiki/Greek_alphabet
+希腊字母: <https://en.wikipedia.org/wiki/Greek_alphabet>
 
 组合运算: $\binom{a}{b}$  
 
@@ -33,7 +33,14 @@ word中用mathtype: 直接输入由`$$` 包裹的latex公式, 按`Alt`+`\` 生�
 $\binom{a}{b}$
 ```
 
-半边括号加矩阵形式:  $\left \{ \begin{matrix} a = 0 \\ a = 1 \end{matrix} \right.$  
+半边括号加矩阵形式:
+$$
+\left \{
+\begin{matrix} 
+a = 0 \\ 
+a = 1 
+\end{matrix} \right.
+$$
 
 ```
 $\left \{ \begin{matrix} a = 0 \\ a = 1 \end{matrix} \right.$

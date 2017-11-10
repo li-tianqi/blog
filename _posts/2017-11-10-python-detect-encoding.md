@@ -19,7 +19,7 @@ python3打开文件时默认以`utf-8`解析, 遇到非此编码文件, 会出�
 
 用二进制打开-> 用`chardet` 检测
 
-```python3
+```python
 import chardet
 
 with open(filename, "rb") as f:
