@@ -1,6 +1,10 @@
 ---
 layout: layout
 ---
+{% if page.mermaid %}
+    <link rel="stylesheet" href="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.css">
+    <script src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.js"></script>
+{% endif %}
 
 {% assign __ = site.data.languages[site.language] %}
 {% include post.html %}
