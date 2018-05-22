@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LeetCode 39--Combination Sum
+title: LeetCode 39 & 40--Combination Sum
 categories: [LeetCode]
 tags: []
 mermaid: false
@@ -14,7 +14,9 @@ excerpt_separator: <!--more-->
 
 <!--## title-->
 
-## LeetCode 39: Combination Sum
+## LeetCode 39 & 40: Combination Sum
+
+### Combination Sum I
 
 > Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
 >
@@ -56,3 +58,43 @@ class Solution:
         return rt
 ```
 
+### Combination Sum II
+
+> Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+>
+> Each number in candidates may only be used once in the combination.
+
+<https://leetcode.com/problems/combination-sum-ii/description/>
+
+```python
+class Solution:
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        rt = []
+        candidates = sorted(candidates)
+        
+        def helper(target, solution, start):
+            for i in range(start, len(candidates)):
+                if i-1 >= start and candidates[i] == candidates[i-1]:
+                    # 避免考察重复元素
+                    continue
+                if target - candidates[i] == 0:
+                    #if solution + [candidates[i]] not in rt:
+                    # 开始用的这种方法避免重复, 后改为上面判断方法
+                    # 从73.39%提升到99.27%
+                    rt.append(solution + [candidates[i]])
+                    return
+                elif target - candidates[i] < 0:
+                    return
+                else:
+                    # 与Combination Sum I 主要区别在这
+                    helper(target-candidates[i], solution+[candidates[i]], i+1)
+                    
+        helper(target, [], 0)
+        
+        return rt
+```
