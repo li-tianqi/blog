@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LeetCode 39: Combination Sum
+title: LeetCode 39--Combination Sum
 categories: [LeetCode]
 tags: []
 mermaid: false
