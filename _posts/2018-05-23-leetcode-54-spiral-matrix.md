@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LeetCode 54--Spiral Matrix
+title: LeetCode 54 & 59--Spiral Matrix
 categories: [LeetCode]
 tags: []
 mermaid: false
@@ -14,7 +14,9 @@ excerpt_separator: <!--more-->
 
 <!--## title-->
 
-## LeetCode 54: Spiral Matrix
+## LeetCode 54 & 59: Spiral Matrix
+
+### Spiral Matrix
 
 > Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
 
@@ -82,6 +84,78 @@ class Solution:
             else:
                 break
             
+        return rt
+```
+
+### Spiral Matrix II
+
+> Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+
+<https://leetcode.com/problems/spiral-matrix-ii/description/>
+
+```python
+class Solution:
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        rt = [[0] * n for _ in range(n)]
+        
+        cur_pos = (0, -1)
+        row_steps = n
+        col_steps = n-1
+        num = 0
+        
+        def right(cur_pos, row_steps, num):
+            i, j = cur_pos
+            for _ in range(row_steps):
+                j += 1
+                num += 1
+                rt[i][j] = num
+            return (i, j), row_steps-1, num
+            
+        def down(cur_pos, col_steps, num):
+            i, j = cur_pos
+            for _ in range(col_steps):
+                i += 1
+                num += 1
+                rt[i][j] = num
+            return (i, j), col_steps-1, num
+        
+        def left(cur_pos, row_steps, num):
+            i, j = cur_pos
+            for _ in range(row_steps):
+                j -= 1
+                num += 1
+                rt[i][j] = num
+            return (i, j), row_steps-1, num
+        
+        def up(cur_pos, col_steps, num):
+            i, j = cur_pos
+            for _ in range(col_steps):
+                i -= 1
+                num += 1
+                rt[i][j] = num
+            return (i, j), col_steps-1, num
+        
+        while True:
+            if row_steps > 0:
+                cur_pos, row_steps, num = right(cur_pos, row_steps, num)
+            else:
+                break
+            if col_steps > 0:
+                cur_pos, col_steps, num = down(cur_pos, col_steps, num)
+            else:
+                break
+            if row_steps > 0:
+                cur_pos, row_steps, num = left(cur_pos, row_steps, num)
+            else:
+                break
+            if col_steps > 0:
+                cur_pos, col_steps, num = up(cur_pos, col_steps, num)
+            else:
+                break
         return rt
 ```
 
